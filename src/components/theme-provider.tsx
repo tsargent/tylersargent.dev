@@ -12,7 +12,7 @@ import {
 type Theme = "light" | "dark";
 
 type ThemeContextType = {
-  theme: Theme;
+  theme: Theme | null; // null prior to hydration; avoids flicker
   toggleTheme: () => void;
   setTheme: (t: Theme) => void;
 };
@@ -20,43 +20,53 @@ type ThemeContextType = {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  // Stable initial theme for SSR to prevent hydration mismatch; actual preference applied after mount.
-  const [theme, setTheme] = useState<Theme>("light");
   const userSetRef = useRef(false);
-  const effectCleanupRef = useRef<null | (() => void)>(null);
+  const cleanupRef = useRef<null | (() => void)>(null);
+  const [theme, setTheme] = useState<Theme | null>(() => {
+    try {
+      const v = localStorage.getItem("theme");
+      if (v === "light" || v === "dark") return v;
+      const prefersDark = window.matchMedia(
+        "(prefers-color-scheme: dark)"
+      ).matches;
+      return prefersDark ? "dark" : "light";
+    } catch {
+      return null;
+    }
+  });
 
-  // Initialize real theme & attach system listener when no stored preference
+  // Attach system listener only if no stored user preference
   useEffect(() => {
-    queueMicrotask(() => {
-      const stored = localStorage.getItem("theme") as Theme | null;
-      const media = window.matchMedia("(prefers-color-scheme: dark)");
-      if (stored) {
-        userSetRef.current = true;
-        setTheme(stored);
-      } else {
-        setTheme(media.matches ? "dark" : "light");
-        const handler = (e: MediaQueryListEvent) => {
-          if (!userSetRef.current) {
-            setTheme(e.matches ? "dark" : "light");
-          }
-        };
-        media.addEventListener("change", handler);
-        effectCleanupRef.current = () =>
-          media.removeEventListener("change", handler);
-      }
-    });
+    try {
+      const stored = localStorage.getItem("theme");
+      if (stored === "light" || stored === "dark") return; // user already chose
+    } catch {
+      // ignore
+    }
+    const media = window.matchMedia("(prefers-color-scheme: dark)");
+    const handler = (e: MediaQueryListEvent) => {
+      if (!userSetRef.current) setTheme(e.matches ? "dark" : "light");
+    };
+    media.addEventListener("change", handler);
+    cleanupRef.current = () => media.removeEventListener("change", handler);
     return () => {
-      if (effectCleanupRef.current) effectCleanupRef.current();
+      if (cleanupRef.current) cleanupRef.current();
     };
   }, []);
 
-  // Apply theme side-effects
+  // Apply side-effects only once theme is known.
   useEffect(() => {
+    if (!theme) return;
+    try {
+      localStorage.setItem("theme", theme);
+    } catch {}
     const root = document.documentElement;
-    root.classList.remove("light", "dark");
-    root.classList.add(theme);
-    root.style.colorScheme = theme; // hint for form controls
-    localStorage.setItem("theme", theme);
+    // Ensure class matches state (early script may have already done this, so idempotent)
+    if (!root.classList.contains(theme)) {
+      root.classList.remove("light", "dark");
+      root.classList.add(theme);
+    }
+    root.style.colorScheme = theme;
   }, [theme]);
 
   const toggleTheme = () => {
@@ -64,7 +74,17 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     setTheme((prev) => (prev === "light" ? "dark" : "light"));
   };
 
-  const value = useMemo(() => ({ theme, toggleTheme, setTheme }), [theme]);
+  const value = useMemo(
+    () => ({
+      theme,
+      toggleTheme,
+      setTheme: (t: Theme) => {
+        userSetRef.current = true;
+        setTheme(t);
+      },
+    }),
+    [theme]
+  );
 
   return (
     <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
