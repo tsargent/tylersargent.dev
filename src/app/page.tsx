@@ -119,32 +119,16 @@ export default function Home() {
         <div className="space-y-6">
           <div className="space-y-2">
             <h3 className="text-lg font-medium text-foreground">
-              Open Source Project
+              Buoy Sonification Project
             </h3>
             <p className="text-foreground/70">
-              Description of a notable project you&apos;ve worked on. Highlight
-              the technologies used and the impact it had.
+              TypeScript monorepo transforming real-time NOAA buoy observations
+              into APIs for exploratory auditory analytics. Built with Fastify,
+              Prisma, BullMQ, and Redis. Features real-time SSE streaming,
+              comprehensive test coverage, and production-ready CI/CD pipeline.
             </p>
             <a
-              href="https://github.com/tsargent/project"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block text-sm text-foreground/60 transition-colors hover:text-foreground"
-            >
-              View on GitHub →
-            </a>
-          </div>
-
-          <div className="space-y-2">
-            <h3 className="text-lg font-medium text-foreground">
-              Side Project Name
-            </h3>
-            <p className="text-foreground/70">
-              Another project showcasing your skills. Focus on problem-solving
-              and technical decisions.
-            </p>
-            <a
-              href="https://github.com/tsargent/project"
+              href="https://github.com/tsargent/buoy-data-project"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-block text-sm text-foreground/60 transition-colors hover:text-foreground"
