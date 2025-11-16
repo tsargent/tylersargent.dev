@@ -20,31 +20,34 @@ type ThemeContextType = {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<Theme>(() => {
-    if (typeof window === "undefined") return "light";
-    const stored = localStorage.getItem("theme") as Theme | null;
-    if (stored) return stored;
-    const prefersDark = window.matchMedia(
-      "(prefers-color-scheme: dark)"
-    ).matches;
-    return prefersDark ? "dark" : "light";
-  });
+  // Stable initial theme for SSR to prevent hydration mismatch; actual preference applied after mount.
+  const [theme, setTheme] = useState<Theme>("light");
   const userSetRef = useRef(false);
+  const effectCleanupRef = useRef<null | (() => void)>(null);
 
-  // Initialize theme & attach system listener when no stored preference
+  // Initialize real theme & attach system listener when no stored preference
   useEffect(() => {
-    const stored = localStorage.getItem("theme") as Theme | null;
-    if (stored) userSetRef.current = true;
-    const media = window.matchMedia("(prefers-color-scheme: dark)");
-    if (!stored) {
-      const handler = (e: MediaQueryListEvent) => {
-        if (!userSetRef.current) {
-          setTheme(e.matches ? "dark" : "light");
-        }
-      };
-      media.addEventListener("change", handler);
-      return () => media.removeEventListener("change", handler);
-    }
+    queueMicrotask(() => {
+      const stored = localStorage.getItem("theme") as Theme | null;
+      const media = window.matchMedia("(prefers-color-scheme: dark)");
+      if (stored) {
+        userSetRef.current = true;
+        setTheme(stored);
+      } else {
+        setTheme(media.matches ? "dark" : "light");
+        const handler = (e: MediaQueryListEvent) => {
+          if (!userSetRef.current) {
+            setTheme(e.matches ? "dark" : "light");
+          }
+        };
+        media.addEventListener("change", handler);
+        effectCleanupRef.current = () =>
+          media.removeEventListener("change", handler);
+      }
+    });
+    return () => {
+      if (effectCleanupRef.current) effectCleanupRef.current();
+    };
   }, []);
 
   // Apply theme side-effects
