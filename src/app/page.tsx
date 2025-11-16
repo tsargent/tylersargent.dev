@@ -22,8 +22,9 @@ export default function Home() {
         </p>
         <p className="mb-8 max-w-2xl text-lg leading-relaxed text-foreground/70">
           Building performant, maintainable software with TypeScript, React, and
-          React Native. Focused on clean code, testing best practices, and
-          delivering high-quality solutions in health tech for 7 years.
+          React Native. Over a decade of engineering experience with a focus on
+          clean code, testing best practices, and delivering high-quality
+          solutions in health tech.
         </p>
         <SocialLinks />
       </header>
