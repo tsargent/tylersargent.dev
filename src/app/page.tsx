@@ -1,65 +1,166 @@
-import Image from "next/image";
-
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
+    <main className="mx-auto max-w-3xl px-6 py-16 sm:py-24">
+      {/* Header */}
+      <header className="mb-16">
+        <h1 className="mb-3 text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
+          Tyler Sargent
+        </h1>
+        <p className="mb-6 text-xl text-foreground/80">
+          Staff Software Engineer
+        </p>
+        <p className="mb-8 max-w-2xl text-lg leading-relaxed text-foreground/70">
+          Building performant, maintainable software with TypeScript, React, and
+          React Native. Focused on clean code, testing best practices, and
+          delivering high-quality solutions in health tech for 7 years.
+        </p>
+        <div className="flex flex-wrap gap-4">
           <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
+            href="https://github.com/tsargent"
             target="_blank"
             rel="noopener noreferrer"
+            className="text-sm text-foreground/60 transition-colors hover:text-foreground"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
+            GitHub
           </a>
           <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
+            href="https://linkedin.com/in/tylersargent"
             target="_blank"
             rel="noopener noreferrer"
+            className="text-sm text-foreground/60 transition-colors hover:text-foreground"
           >
-            Documentation
+            LinkedIn
+          </a>
+          <a
+            href="mailto:hello@tylersargent.dev"
+            className="text-sm text-foreground/60 transition-colors hover:text-foreground"
+          >
+            Email
           </a>
         </div>
-      </main>
-    </div>
+      </header>
+
+      {/* Experience */}
+      <section className="mb-16">
+        <h2 className="mb-6 text-2xl font-semibold tracking-tight text-foreground">
+          Experience
+        </h2>
+        <div className="space-y-8">
+          <div className="space-y-2">
+            <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between">
+              <h3 className="text-lg font-medium text-foreground">
+                Staff Software Engineer
+              </h3>
+              <span className="text-sm text-foreground/60">2021 - Present</span>
+            </div>
+            <p className="text-foreground/70">
+              Leading development of mobile and web applications in health tech
+              using TypeScript, React Native, and React. Implementing
+              comprehensive testing strategies and establishing best practices
+              for code quality and maintainability. Mentoring engineers and
+              driving technical excellence across teams.
+            </p>
+          </div>
+
+          <div className="space-y-2">
+            <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between">
+              <h3 className="text-lg font-medium text-foreground">
+                Software Engineer
+              </h3>
+              <span className="text-sm text-foreground/60">2018 - 2021</span>
+            </div>
+            <p className="text-foreground/70">
+              Built and maintained full-stack health tech applications with
+              TypeScript and Node.js. Developed cross-platform mobile
+              applications with React Native. Contributed to testing
+              infrastructure and improved deployment processes.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Skills */}
+      <section className="mb-16">
+        <h2 className="mb-6 text-2xl font-semibold tracking-tight text-foreground">
+          Skills
+        </h2>
+        <div className="space-y-4">
+          <div>
+            <h3 className="mb-2 text-sm font-medium text-foreground/80">
+              Languages
+            </h3>
+            <p className="text-foreground/70">TypeScript, JavaScript</p>
+          </div>
+          <div>
+            <h3 className="mb-2 text-sm font-medium text-foreground/80">
+              Technologies
+            </h3>
+            <p className="text-foreground/70">
+              React Native, React, Node.js, Next.js
+            </p>
+          </div>
+          <div>
+            <h3 className="mb-2 text-sm font-medium text-foreground/80">
+              Practices
+            </h3>
+            <p className="text-foreground/70">
+              Testing Best Practices, Test-Driven Development, Code Review,
+              Clean Code, CI/CD
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Projects */}
+      <section className="mb-16">
+        <h2 className="mb-6 text-2xl font-semibold tracking-tight text-foreground">
+          Projects
+        </h2>
+        <div className="space-y-6">
+          <div className="space-y-2">
+            <h3 className="text-lg font-medium text-foreground">
+              Open Source Project
+            </h3>
+            <p className="text-foreground/70">
+              Description of a notable project you&apos;ve worked on. Highlight
+              the technologies used and the impact it had.
+            </p>
+            <a
+              href="https://github.com/tsargent/project"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block text-sm text-foreground/60 transition-colors hover:text-foreground"
+            >
+              View on GitHub →
+            </a>
+          </div>
+
+          <div className="space-y-2">
+            <h3 className="text-lg font-medium text-foreground">
+              Side Project Name
+            </h3>
+            <p className="text-foreground/70">
+              Another project showcasing your skills. Focus on problem-solving
+              and technical decisions.
+            </p>
+            <a
+              href="https://github.com/tsargent/project"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block text-sm text-foreground/60 transition-colors hover:text-foreground"
+            >
+              View on GitHub →
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="border-t border-foreground/10 pt-8">
+        <p className="text-sm text-foreground/60">
+          © {new Date().getFullYear()} Tyler Sargent. All rights reserved.
+        </p>
+      </footer>
+    </main>
   );
 }
