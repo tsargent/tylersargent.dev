@@ -53,6 +53,33 @@ export default function RootLayout({
             __html: `(() => {try {const stored = localStorage.getItem('theme'); const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches; const theme = stored || (prefersDark ? 'dark' : 'light'); document.documentElement.classList.add(theme);} catch(_) {}})();`,
           }}
         />
+        <meta name="color-scheme" content="light dark" />
+        <meta
+          name="theme-color"
+          content="#ffffff"
+          media="(prefers-color-scheme: light)"
+        />
+        <meta
+          name="theme-color"
+          content="#0a0a0a"
+          media="(prefers-color-scheme: dark)"
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Person",
+              name: "Tyler Sargent",
+              url: "https://tylersargent.dev",
+              sameAs: [
+                "https://github.com/tsargent",
+                "https://www.linkedin.com/in/tylersargent",
+              ],
+              jobTitle: "Staff Software Engineer",
+            }),
+          }}
+        />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
