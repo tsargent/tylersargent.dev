@@ -1,8 +1,9 @@
 import { ThemeToggle } from "@/components/theme-toggle";
+import { socialLinks, experience, skills, projects } from "@/data/profile";
 
 export default function Home() {
   return (
-    <main className="mx-auto max-w-3xl px-6 py-16 sm:py-24">
+    <main id="main" className="mx-auto max-w-3xl px-6 py-16 sm:py-24">
       {/* Theme Toggle */}
       <div className="mb-8 flex justify-end">
         <ThemeToggle />
@@ -21,30 +22,21 @@ export default function Home() {
           React Native. Focused on clean code, testing best practices, and
           delivering high-quality solutions in health tech for 7 years.
         </p>
-        <div className="flex flex-wrap gap-4">
-          <a
-            href="https://github.com/tsargent"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-sm text-foreground/60 transition-colors hover:text-foreground"
-          >
-            GitHub
-          </a>
-          <a
-            href="https://linkedin.com/in/tylersargent"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-sm text-foreground/60 transition-colors hover:text-foreground"
-          >
-            LinkedIn
-          </a>
-          <a
-            href="mailto:hello@tylersargent.dev"
-            className="text-sm text-foreground/60 transition-colors hover:text-foreground"
-          >
-            Email
-          </a>
-        </div>
+        <ul className="flex flex-wrap gap-4" aria-label="Social links">
+          {socialLinks.map((link) => (
+            <li key={link.label}>
+              <a
+                href={link.href}
+                target={link.external ? "_blank" : undefined}
+                rel={link.external ? "noopener noreferrer" : undefined}
+                className="text-sm text-foreground/60 transition-colors hover:text-foreground"
+                aria-label={link.label === "Email" ? "Send email" : link.label}
+              >
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
       </header>
 
       {/* Experience */}
@@ -52,38 +44,21 @@ export default function Home() {
         <h2 className="mb-6 text-2xl font-semibold tracking-tight text-foreground">
           Experience
         </h2>
-        <div className="space-y-8">
-          <div className="space-y-2">
-            <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between">
-              <h3 className="text-lg font-medium text-foreground">
-                Staff Software Engineer
-              </h3>
-              <span className="text-sm text-foreground/60">2021 - Present</span>
-            </div>
-            <p className="text-foreground/70">
-              Leading development of mobile and web applications in health tech
-              using TypeScript, React Native, and React. Implementing
-              comprehensive testing strategies and establishing best practices
-              for code quality and maintainability. Mentoring engineers and
-              driving technical excellence across teams.
-            </p>
-          </div>
-
-          <div className="space-y-2">
-            <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between">
-              <h3 className="text-lg font-medium text-foreground">
-                Software Engineer
-              </h3>
-              <span className="text-sm text-foreground/60">2018 - 2021</span>
-            </div>
-            <p className="text-foreground/70">
-              Built and maintained full-stack health tech applications with
-              TypeScript and Node.js. Developed cross-platform mobile
-              applications with React Native. Contributed to testing
-              infrastructure and improved deployment processes.
-            </p>
-          </div>
-        </div>
+        <ul className="space-y-8">
+          {experience.map((role) => (
+            <li key={role.title} className="space-y-2">
+              <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between">
+                <h3 className="text-lg font-medium text-foreground">
+                  {role.title}
+                </h3>
+                <span className="text-sm text-foreground/60">
+                  <time>{role.from}</time> - <time>{role.to}</time>
+                </span>
+              </div>
+              <p className="text-foreground/70">{role.description}</p>
+            </li>
+          ))}
+        </ul>
       </section>
 
       {/* Skills */}
@@ -92,29 +67,20 @@ export default function Home() {
           Skills
         </h2>
         <div className="space-y-4">
-          <div>
-            <h3 className="mb-2 text-sm font-medium text-foreground/80">
-              Languages
-            </h3>
-            <p className="text-foreground/70">TypeScript, JavaScript</p>
-          </div>
-          <div>
-            <h3 className="mb-2 text-sm font-medium text-foreground/80">
-              Technologies
-            </h3>
-            <p className="text-foreground/70">
-              React Native, React, Node.js, Next.js
-            </p>
-          </div>
-          <div>
-            <h3 className="mb-2 text-sm font-medium text-foreground/80">
-              Practices
-            </h3>
-            <p className="text-foreground/70">
-              Testing Best Practices, Test-Driven Development, Code Review,
-              Clean Code, CI/CD
-            </p>
-          </div>
+          {skills.map((group) => (
+            <div key={group.group}>
+              <h3 className="mb-2 text-sm font-medium text-foreground/80">
+                {group.group}
+              </h3>
+              <ul className="flex flex-wrap gap-x-3 gap-y-1 text-foreground/70">
+                {group.items.map((item) => (
+                  <li key={item} className="text-sm">
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
       </section>
 
@@ -123,27 +89,25 @@ export default function Home() {
         <h2 className="mb-6 text-2xl font-semibold tracking-tight text-foreground">
           Projects
         </h2>
-        <div className="space-y-6">
-          <div className="space-y-2">
-            <h3 className="text-lg font-medium text-foreground">
-              Buoy Sonification Project
-            </h3>
-            <p className="text-foreground/70">
-              TypeScript monorepo transforming real-time NOAA buoy observations
-              into APIs for exploratory auditory analytics. Built with Fastify,
-              Prisma, BullMQ, and Redis. Features real-time SSE streaming,
-              comprehensive test coverage, and production-ready CI/CD pipeline.
-            </p>
-            <a
-              href="https://github.com/tsargent/buoy-data-project"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block text-sm text-foreground/60 transition-colors hover:text-foreground"
-            >
-              View on GitHub →
-            </a>
-          </div>
-        </div>
+        <ul className="space-y-6">
+          {projects.map((project) => (
+            <li key={project.name} className="space-y-2">
+              <h3 className="text-lg font-medium text-foreground">
+                {project.name}
+              </h3>
+              <p className="text-foreground/70">{project.description}</p>
+              <a
+                href={project.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block text-sm text-foreground/60 transition-colors hover:text-foreground"
+                aria-label={`View ${project.name} on GitHub`}
+              >
+                View on GitHub →
+              </a>
+            </li>
+          ))}
+        </ul>
       </section>
 
       {/* Footer */}

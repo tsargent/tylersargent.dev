@@ -11,6 +11,9 @@ export function ThemeToggle() {
       className="cursor-pointer rounded-lg p-2 text-foreground/60 transition-colors hover:bg-foreground/5 hover:text-foreground"
       aria-label="Toggle theme"
     >
+      <span className="sr-only">
+        {theme === "light" ? "Enable dark mode" : "Enable light mode"}
+      </span>
       {theme === "light" ? (
         <svg
           xmlns="http://www.w3.org/2000/svg"
