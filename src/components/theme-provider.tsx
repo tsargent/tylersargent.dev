@@ -22,18 +22,25 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const userSetRef = useRef(false);
   const cleanupRef = useRef<null | (() => void)>(null);
-  const [theme, setTheme] = useState<Theme | null>(() => {
+  // Always start with null to match SSR, then hydrate in useEffect
+  const [theme, setTheme] = useState<Theme | null>(null);
+
+  // Hydrate theme from localStorage or system preference after mount
+  useEffect(() => {
     try {
-      const v = localStorage.getItem("theme");
-      if (v === "light" || v === "dark") return v;
+      const stored = localStorage.getItem("theme");
+      if (stored === "light" || stored === "dark") {
+        setTheme(stored);
+        return;
+      }
       const prefersDark = window.matchMedia(
         "(prefers-color-scheme: dark)"
       ).matches;
-      return prefersDark ? "dark" : "light";
+      setTheme(prefersDark ? "dark" : "light");
     } catch {
-      return null;
+      setTheme("light"); // fallback
     }
-  });
+  }, []);
 
   // Attach system listener only if no stored user preference
   useEffect(() => {
