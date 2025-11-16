@@ -5,6 +5,23 @@ import { useTheme } from "./theme-provider";
 export function ThemeToggle() {
   const { theme, toggleTheme } = useTheme();
 
+  // During SSR/hydration when theme is null, show a placeholder
+  if (theme === null) {
+    return (
+      <button
+        type="button"
+        className="cursor-pointer rounded-lg p-2 text-foreground/60 transition-colors hover:bg-foreground/5 hover:text-foreground"
+        aria-label="Toggle theme"
+        disabled
+      >
+        <span className="sr-only">Toggle theme</span>
+        <span className="inline-block h-5 w-5">
+          {/* Empty span to maintain layout */}
+        </span>
+      </button>
+    );
+  }
+
   return (
     <button
       type="button"
