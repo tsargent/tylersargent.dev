@@ -1,6 +1,13 @@
+import { ThemeToggle } from "@/components/theme-toggle";
+
 export default function Home() {
   return (
     <main className="mx-auto max-w-3xl px-6 py-16 sm:py-24">
+      {/* Theme Toggle */}
+      <div className="mb-8 flex justify-end">
+        <ThemeToggle />
+      </div>
+
       {/* Header */}
       <header className="mb-16">
         <h1 className="mb-3 text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
