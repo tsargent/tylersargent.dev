@@ -69,6 +69,12 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    name: "RAG Demo",
+    description:
+      "Retrieval-Augmented Generation demonstration project showcasing AI-powered document retrieval and question answering capabilities.",
+    href: "https://github.com/tsargent/RAG-demo",
+  },
+  {
     name: "Buoy Sonification Project",
     description:
       "TypeScript monorepo transforming real-time NOAA buoy observations into APIs for exploratory auditory analytics. Built with Fastify, Prisma, BullMQ, and Redis. Features real-time SSE streaming, comprehensive test coverage, and production-ready CI/CD pipeline.",
