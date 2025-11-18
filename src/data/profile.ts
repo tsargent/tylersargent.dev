@@ -69,6 +69,12 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    name: "Spec → Scaffold Developer Agent",
+    description:
+      "AI-powered code scaffolding tool that generates complete project structures from feature descriptions. Built with Next.js 16, React 19, TypeScript, and OpenAI API. Enter a spec, preview generated files, and download as ZIP.",
+    href: "https://github.com/tsargent/spec-scaffold",
+  },
+  {
     name: "RAG Demo",
     description:
       "Retrieval-Augmented Generation demonstration project showcasing AI-powered document retrieval and question answering capabilities.",
