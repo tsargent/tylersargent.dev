@@ -86,4 +86,10 @@ export const projects: Project[] = [
       "TypeScript monorepo transforming real-time NOAA buoy observations into APIs for exploratory auditory analytics. Built with Fastify, Prisma, BullMQ, and Redis. Features real-time SSE streaming, comprehensive test coverage, and production-ready CI/CD pipeline.",
     href: "https://github.com/tsargent/buoy-data-project",
   },
+  {
+    name: "Phase Looper",
+    description:
+      "Web-based audio looper and phase music experiment. Layer, loop, and phase-shift audio clips in the browser. Built with TypeScript, React, and the Web Audio API.",
+    href: "https://github.com/tsargent/phase-looper",
+  },
 ];
