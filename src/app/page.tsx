@@ -1,8 +1,5 @@
 import { ThemeToggle } from "@/components/theme-toggle";
 import { SocialLinks } from "@/components/social-links";
-import { ExperienceList } from "@/components/experience-list";
-import { SkillsList } from "@/components/skills-list";
-import { ProjectsList } from "@/components/projects-list";
 
 export default function Home() {
   return (
@@ -28,30 +25,6 @@ export default function Home() {
         </p>
         <SocialLinks />
       </header>
-
-      {/* Experience */}
-      <section className="mb-16">
-        <h2 className="mb-6 text-2xl font-semibold tracking-tight text-foreground">
-          Experience
-        </h2>
-        <ExperienceList />
-      </section>
-
-      {/* Skills */}
-      <section className="mb-16">
-        <h2 className="mb-6 text-2xl font-semibold tracking-tight text-foreground">
-          Skills
-        </h2>
-        <SkillsList />
-      </section>
-
-      {/* Projects */}
-      <section className="mb-16">
-        <h2 className="mb-6 text-2xl font-semibold tracking-tight text-foreground">
-          Projects
-        </h2>
-        <ProjectsList />
-      </section>
 
       {/* Footer */}
       <footer className="border-t border-foreground/10 pt-8">
